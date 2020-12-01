@@ -48,7 +48,16 @@ print(y$samples)
 
 Filteren op low counts
 ```{r}
+keep <- filterByExpr(y, design)
+yfilter <- y[keep,]
+```
 
+Create Cluster dendrogram
+```{r}
+x <- t(y$counts)
+x <- dist(x, method = "euclidean")
+x <- hclust(x, method = "average")
+plot(x)
 ```
 
 Create Design matrix
