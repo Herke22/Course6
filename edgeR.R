@@ -33,6 +33,22 @@ y <- DGEList(counts=cnts[,2:5],group=group)
 y <- calcNormFactors(y, method="TMM" )
 
 ###############################################################
+### Filter low read counts
+###############################################################
+
+keep <- filterByExpr(y, design)
+y <- y[keep,]
+
+###############################################################
+### Cluster genes using Hierarchal clustering
+###############################################################
+
+x <- t(y$counts)
+x <- dist(x, method = "euclidean")
+x <- hclust(x, method = "average")
+plot(x)
+
+###############################################################
 ### Check statistics
 ###############################################################
 
